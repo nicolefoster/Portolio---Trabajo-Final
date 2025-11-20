@@ -3,651 +3,286 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>rafter manguiat—</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-          "Helvetica Neue", Arial, sans-serif;
-        background: #d4d0c8;
-        color: #000;
-        line-height: 1.5;
-        font-size: 13px;
-        overflow-x: hidden;
-      }
-
-      /* Header/Navigation */
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 40px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #d4d0c8;
-        z-index: 100;
-      }
-
-      .logo {
-        font-size: 14px;
-        letter-spacing: -0.02em;
-        opacity: 0;
-        animation: slideInLeft 0.6s ease forwards;
-        cursor: pointer;
-        transition: opacity 0.2s;
-      }
-
-      .logo:hover {
-        opacity: 0.6;
-      }
-
-      nav {
-        display: flex;
-        gap: 60px;
-        opacity: 0;
-        animation: slideInRight 0.6s ease forwards;
-        animation-delay: 0.2s;
-      }
-
-      nav a {
-        color: #000;
-        text-decoration: none;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        transition: opacity 0.2s, transform 0.2s;
-        position: relative;
-        cursor: pointer;
-      }
-
-      nav a::after {
-        content: "";
-        position: absolute;
-        bottom: -3px;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background: #000;
-        transition: width 0.3s ease;
-      }
-
-      nav a:hover {
-        opacity: 0.6;
-        transform: translateY(-2px);
-      }
-
-      nav a:hover::after {
-        width: 100%;
-      }
-
-      /* Pages Container */
-      .page {
-        display: none;
-        opacity: 0;
-        min-height: 100vh;
-      }
-
-      .page.active {
-        display: block;
-        animation: fadeInPage 0.5s ease forwards;
-      }
-
-      #home {
-        padding-top: 80px;
-      }
-
-      @keyframes fadeInPage {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* Home Page */
-      #home {
-        padding: 60px 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: calc(100vh - 160px);
-      }
-
-      /* Image Gallery */
-      .gallery {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 50px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .gallery-item {
-        width: 120px;
-        height: 120px;
-        overflow: hidden;
-        background: #999;
-        cursor: pointer;
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
-        opacity: 0;
-        animation: fadeInUp 0.8s ease forwards;
-      }
-
-      .gallery-item:nth-child(1) {
-        animation-delay: 0.1s;
-      }
-      .gallery-item:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .gallery-item:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-      .gallery-item:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-      .gallery-item:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-      .gallery-item:nth-child(6) {
-        animation-delay: 0.6s;
-      }
-
-      .gallery-item:hover {
-        transform: scale(1.08) rotate(2deg);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        z-index: 10;
-      }
-
-      .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-      }
-
-      .gallery-item:hover img {
-        transform: scale(1.1);
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* Bio Section */
-      .bio {
-        max-width: 520px;
-        text-align: center;
-        line-height: 1.6;
-        font-size: 12px;
-        letter-spacing: 0.02em;
-        opacity: 0;
-        animation: fadeIn 1s ease forwards;
-        animation-delay: 0.8s;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes slideInLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes slideInRight {
-        from {
-          opacity: 0;
-          transform: translateX(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      /* Werk Page */
-      #werk {
-        padding: 40px;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .werk-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
-      }
-
-      .werk-item {
-        background: rgba(255, 255, 255, 0.3);
-        padding: 30px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-      }
-
-      .werk-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-      }
-
-      .werk-item h3 {
-        font-size: 18px;
-        margin-bottom: 10px;
-        letter-spacing: -0.02em;
-      }
-
-      .werk-item .client {
-        font-size: 11px;
-        color: #666;
-        margin-bottom: 15px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-      }
-
-      .werk-item p {
-        font-size: 12px;
-        line-height: 1.6;
-      }
-
-      /* Fun Page */
-      #fun {
-        padding: 40px;
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      .fun-content {
-        margin-top: 40px;
-      }
-
-      .fun-section {
-        margin-bottom: 50px;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 30px;
-        transition: background 0.3s ease;
-      }
-
-      .fun-section:hover {
-        background: rgba(255, 255, 255, 0.35);
-      }
-
-      .fun-section h3 {
-        font-size: 16px;
-        margin-bottom: 15px;
-        letter-spacing: -0.01em;
-      }
-
-      .fun-section p {
-        font-size: 12px;
-        line-height: 1.7;
-      }
-
-      /* Bio Page */
-      #bio-page {
-        padding: 40px;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-
-      .bio-content {
-        margin-top: 40px;
-        font-size: 13px;
-        line-height: 1.8;
-      }
-
-      .bio-content h3 {
-        font-size: 16px;
-        margin-top: 30px;
-        margin-bottom: 15px;
-        letter-spacing: -0.01em;
-      }
-
-      .bio-content p {
-        margin-bottom: 20px;
-      }
-
-      .bio-content ul {
-        list-style: none;
-        padding-left: 0;
-      }
-
-      .bio-content li {
-        margin-bottom: 8px;
-        padding-left: 20px;
-        position: relative;
-      }
-
-      .bio-content li::before {
-        content: "—";
-        position: absolute;
-        left: 0;
-      }
-
-      .page-title {
-        font-size: 28px;
-        letter-spacing: -0.02em;
-        font-weight: 400;
-      }
-
-      /* Footer */
-      footer {
-        padding: 30px 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-        margin-top: auto;
-      }
-
-      .footer-links {
-        display: flex;
-        gap: 15px;
-      }
-
-      .footer-links a {
-        color: #000;
-        text-decoration: none;
-        font-size: 12px;
-        transition: opacity 0.2s, transform 0.2s;
-        display: inline-block;
-      }
-
-      .footer-links a:hover {
-        opacity: 0.6;
-        transform: translateY(-2px);
-      }
-
-      .footer-center {
-        font-size: 11px;
-        letter-spacing: 0.05em;
-      }
-
-      .footer-right {
-        font-size: 11px;
-      }
-
-      @media (max-width: 768px) {
-        header {
-          padding: 15px 20px;
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        nav {
-          gap: 30px;
-        }
-
-        #home {
-          padding: 40px 20px;
-        }
-
-        .gallery {
-          gap: 8px;
-        }
-
-        .gallery-item {
-          width: 100px;
-          height: 100px;
-        }
-
-        .bio {
-          font-size: 11px;
-        }
-
-        #werk,
-        #fun,
-        #bio-page {
-          padding: 20px;
-        }
-
-        .werk-grid {
-          grid-template-columns: 1fr;
-        }
-
-        footer {
-          flex-direction: column;
-          gap: 15px;
-          text-align: center;
-          padding: 20px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Sasha Kurilenko - Portfolio</title>
   </head>
   <body>
-    <header>
-      <div class="logo" onclick="showPage('home')">rafter manguiat—</div>
-      <nav>
-        <a onclick="showPage('werk')">WERK</a>
-        <a onclick="showPage('fun')">FUN</a>
-        <a onclick="showPage('bio-page')">BIO</a>
-      </nav>
-    </header>
-
-    <!-- HOME PAGE -->
     <div id="home" class="page active">
-      <div class="gallery">
-        <div
-          class="gallery-item"
-          style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-        ></div>
-        <div
-          class="gallery-item"
-          style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-        ></div>
-        <div
-          class="gallery-item"
-          style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-        ></div>
-        <div
-          class="gallery-item"
-          style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-        ></div>
-        <div
-          class="gallery-item"
-          style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-        ></div>
-        <div
-          class="gallery-item"
-          style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
-        ></div>
+      <nav>
+        <button onclick="showPage('me')">Me</button>
+        <button onclick="showPage('projects')">Projects</button>
+        <button onclick="showPage('contact')">Contact</button>
+      </nav>
+
+      <div class="container home-content">
+        <div class="home-title">
+          <h1>Hi, I am Nicole Foster</h1>
+          <p>A peruvian graphic designer based in Madrid.</p>
+        </div>
+
+        <div class="single-project-card" onclick="showPage('me')">
+          <div class="single-project-image">
+            <div class="circle-logo">
+              <svg width="180" height="180" viewBox="0 0 200 200">
+                <path
+                  d="M 40 100 Q 40 40 80 60 Q 100 50 120 60 Q 160 40 160 100 Q 160 140 120 130 Q 100 140 80 130 Q 40 140 40 100"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                <circle cx="100" cy="100" r="15" fill="#ff69b4" />
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="bio">
-        COPYWRITER AND CONCEPT CREATIVE. PROUDLY FILIPINO & QUEER. CHRONICALLY
-        ONLINE. YELLOW & WHITE PENCIL WINNER. MULTI-GRAND PRIX HOLDER. ADC
-        EUROPE HIGH POTENTIAL. D&AD NEW BLOOD ACADEMY GRAD. HONED HIS CRAFT IN 6
-        CITIES (SO FAR). MADE PRIDE HAPPEN DURING LOCKDOWN. DEVELOPED SKINCARE
-        OUT OF TEXTILE WASTE. REBUILT COMMUNITIES WITH COFFEE BRICKS. HOSTS A
-        RADIO SHOW WITH PLAYLISTS OF OUR GAY LIVES. HUNGRY FOR MORE. SOOO MUCH
-        MORE.
-      </div>
+      <footer>
+        <div class="footer-item">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <span>London, UK + Wordwilde</span>
+        </div>
+        <div class="footer-item">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M9 18l6-6-6-6"></path>
+          </svg>
+          <span>Let's bring nice ideas to life</span>
+        </div>
+        <div class="footer-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            ></path>
+          </svg>
+          <span>Get in touch</span>
+        </div>
+        <span>© 2025 Sasha Kurilenko</span>
+      </footer>
     </div>
 
-    <!-- WERK PAGE -->
-    <div id="werk" class="page">
-      <h2 class="page-title">Selected Work</h2>
-      <div class="werk-grid">
-        <div class="werk-item">
-          <h3>Campaign Title 01</h3>
-          <div class="client">Client Name • 2024</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-        <div class="werk-item">
-          <h3>Campaign Title 02</h3>
-          <div class="client">Client Name • 2024</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-        <div class="werk-item">
-          <h3>Campaign Title 03</h3>
-          <div class="client">Client Name • 2023</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-        <div class="werk-item">
-          <h3>Campaign Title 04</h3>
-          <div class="client">Client Name • 2023</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-        <div class="werk-item">
-          <h3>Campaign Title 05</h3>
-          <div class="client">Client Name • 2023</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-        <div class="werk-item">
-          <h3>Campaign Title 06</h3>
-          <div class="client">Client Name • 2022</div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-      </div>
-    </div>
+    <div id="me" class="page">
+      <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('me')">Me</button>
+        <button onclick="showPage('projects')">Projects</button>
+        <button onclick="showPage('contact')">Contact</button>
+      </nav>
 
-    <!-- FUN PAGE -->
-    <div id="fun" class="page">
-      <h2 class="page-title">Side Projects & Fun Stuff</h2>
-      <div class="fun-content">
-        <div class="fun-section">
-          <h3>Radio Show & Playlists</h3>
-          <p>
-            A collection of carefully curated playlists celebrating queer
-            culture and music. Broadcasting stories through sound.
-          </p>
-        </div>
-        <div class="fun-section">
-          <h3>Creative Experiments</h3>
-          <p>
-            Random ideas, design explorations, and creative experiments that
-            didn't fit anywhere else but needed to exist.
-          </p>
-        </div>
-        <div class="fun-section">
-          <h3>Writing & Thoughts</h3>
-          <p>
-            Essays, observations, and musings about advertising, culture,
-            identity, and everything in between.
-          </p>
-        </div>
-        <div class="fun-section">
-          <h3>Photography</h3>
-          <p>
-            Visual storytelling through the lens. Capturing moments from
-            travels, daily life, and unexpected beauty.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- BIO PAGE -->
-    <div id="bio-page" class="page">
-      <h2 class="page-title">About</h2>
-      <div class="bio-content">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris.
-        </p>
-
-        <h3>Experience</h3>
-        <ul>
-          <li>Current Position at Agency Name (2023 - Present)</li>
-          <li>Previous Position at Agency Name (2021 - 2023)</li>
-          <li>Previous Position at Agency Name (2019 - 2021)</li>
-        </ul>
-
-        <h3>Awards & Recognition</h3>
-        <ul>
-          <li>Award Name - Category (Year)</li>
-          <li>Award Name - Category (Year)</li>
-          <li>Award Name - Category (Year)</li>
-        </ul>
-
-        <h3>Education</h3>
-        <ul>
-          <li>D&AD New Blood Academy Graduate</li>
-          <li>University Name - Degree</li>
-        </ul>
-
-        <h3>Skills & Expertise</h3>
-        <p>
-          Copywriting, Concept Development, Brand Strategy, Content Creation,
-          Creative Direction, Social Media, Campaign Development
+      <div class="me-content">
+        <div class="me-photo"></div>
+        <p class="me-text">
+          I'm a brand and graphic designer with 7 years of experience across
+          design studios, freelance projects, and my own creative studio. I
+          specialise in branding, visual identity systems, and art direction,
+          but my work spans a wide range of disciplines. Over the years, I've
+          held roles as a technical designer, lead designer, project manager,
+          and art director — contributing to everything from app and website
+          design to social media, packaging, presentations, animations, and
+          video content.
         </p>
       </div>
     </div>
 
-    <footer>
-      <div class="footer-links">
-        <a href="mailto:email@example.com">✉ EMAIL</a>
-        <a href="#">CV</a>
-        <a href="#">LINKEDIN</a>
-        <a href="#">INSTA</a>
+    <div id="projects" class="page">
+      <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('me')">Me</button>
+        <button onclick="showPage('projects')">Projects</button>
+        <button onclick="showPage('contact')">Contact</button>
+      </nav>
+
+      <div class="projects-nav">
+        <button class="active" onclick="selectProject('wonderland', this)">
+          Wonderland
+        </button>
+        <button onclick="selectProject('beyondmeat', this)">Beyond Meat</button>
+        <button onclick="selectProject('mesa', this)">Mesa</button>
+        <button onclick="selectProject('reset', this)">Reset</button>
       </div>
-      <div class="footer-center">TROUBLEMAKING @ HEIMAT\TBWA\ DÜSSELDORF</div>
-      <div class="footer-right">© RAFTER MANGUIAT 2025</div>
-    </footer>
+
+      <div class="project-detail">
+        <div class="project-info">
+          <h2 id="project-title">Wonderland</h2>
+          <p id="project-description">
+            A visual system developed for the release of a new album by the band
+            Pompeya. The identity draws inspiration from the bold, contemporary
+            aesthetics of Berlin and Copenhagen — sharp compositions, dynamic
+            layouts, and unapologetically expressive forms. At its core lie
+            primitive 3D shapes, reinforcing the raw, rhythmic quality of the
+            design. The result is a light, free-flowing visual language that
+            mirrors Pompeya's sound: effortless, vibrant, and full of movement.
+          </p>
+        </div>
+
+        <div class="project-visual">
+          <div class="main-circle">
+            <svg width="300" height="300" viewBox="0 0 300 300">
+              <path
+                d="M 100 150 Q 100 120 120 130 L 140 120 L 140 180 L 120 170 Q 100 180 100 150"
+                fill="#ff6347"
+                stroke="#ff6347"
+                stroke-width="8"
+              />
+              <path
+                d="M 160 120 Q 180 110 200 120 L 200 180 Q 180 190 160 180 Z"
+                fill="#ff6347"
+                stroke="#ff6347"
+                stroke-width="8"
+              />
+              <text
+                x="150"
+                y="155"
+                text-anchor="middle"
+                fill="#ffd700"
+                font-size="24"
+                font-weight="bold"
+              >
+                POM
+              </text>
+            </svg>
+          </div>
+
+          <div class="color-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="contact" class="page">
+      <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('me')">Me</button>
+        <button onclick="showPage('projects')">Projects</button>
+        <button onclick="showPage('contact')">Contact</button>
+      </nav>
+
+      <div class="container contact-content">
+        <div class="contact-grid">
+          <div class="contact-main">
+            <h2>Let's bring<br />nice ideas to life</h2>
+            <a href="mailto:sashakurilenko.work@gmail.com"
+              >sashakurilenko.work@gmail.com</a
+            >
+          </div>
+
+          <div class="social-links">
+            <div class="social-column">
+              <a href="#">Behance</a>
+              <a href="#">Instagram</a>
+              <a href="#">Linkedin</a>
+            </div>
+            <div class="social-column">
+              <a href="#">Telegram</a>
+              <a href="#">Pinterest</a>
+              <a href="#">SoundCloud</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-item">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <span>London, UK + Wordwilde</span>
+        </div>
+        <div class="footer-item">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M9 18l6-6-6-6"></path>
+          </svg>
+          <span>Let's bring nice ideas to life</span>
+        </div>
+        <div class="footer-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            ></path>
+          </svg>
+          <span>Get in touch</span>
+        </div>
+        <span>© 2025 Sasha Kurilenko</span>
+      </footer>
+    </div>
 
     <script>
+      var projects = {
+        wonderland: {
+          title: "Wonderland",
+          description:
+            "A visual system developed for the release of a new album by the band Pompeya. The identity draws inspiration from the bold, contemporary aesthetics of Berlin and Copenhagen — sharp compositions, dynamic layouts, and unapologetically expressive forms. At its core lie primitive 3D shapes, reinforcing the raw, rhythmic quality of the design. The result is a light, free-flowing visual language that mirrors Pompeya's sound: effortless, vibrant, and full of movement.",
+        },
+        beyondmeat: {
+          title: "Beyond Meat",
+          description:
+            "A branding project inspired by Scandinavian minimalism and modern Danish design principles.",
+        },
+        mesa: {
+          title: "Mesa",
+          description:
+            "Visual identity system for a technology security company.",
+        },
+        reset: {
+          title: "Reset",
+          description: "Comprehensive brand identity for a lifestyle brand.",
+        },
+      };
+
       function showPage(pageId) {
-        // Ocultar todas las páginas
-        const pages = document.querySelectorAll(".page");
-        pages.forEach((page) => {
-          page.classList.remove("active");
-        });
-
-        // Mostrar la página seleccionada
-        const selectedPage = document.getElementById(pageId);
-        if (selectedPage) {
-          selectedPage.classList.add("active");
+        var pages = document.querySelectorAll(".page");
+        for (var i = 0; i < pages.length; i++) {
+          pages[i].classList.remove("active");
         }
+        document.getElementById(pageId).classList.add("active");
+        window.scrollTo(0, 0);
+      }
 
-        // Scroll hacia arriba
-        window.scrollTo({ top: 0, behavior: "smooth" });
+      function selectProject(projectKey, button) {
+        var project = projects[projectKey];
+        document.getElementById("project-title").textContent = project.title;
+        document.getElementById("project-description").textContent =
+          project.description;
+
+        var buttons = document.querySelectorAll(".projects-nav button");
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].classList.remove("active");
+        }
+        if (button) {
+          button.classList.add("active");
+        }
       }
     </script>
   </body>
