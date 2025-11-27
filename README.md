@@ -1,6 +1,6 @@
-# You can find the project deployed here:gigi
+# Hi
 
-https://nicolefoster.github.io/portfolio-template-2025/
-"https://nicolefoster.github.io/portfolio-template-2025/"
+> by @nicolefoster
 
-by @nicolefoster
+You can find the project deployed here: [https://nicolefoster.github.io/portfolio-template-2025/]
+(https://nicolefoster.github.io/portfolio-template-2025/)
